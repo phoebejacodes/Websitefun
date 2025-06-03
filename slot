@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gambling Awareness Slot Machine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    .symbols {
+      font-size: 60px;
+      margin: 20px 0;
+    }
+    .result {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .stats {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎰 Gambling Awareness Simulator</h1>
+  <p>See how unlikely it really is to win...</p>
+
+  <div class="symbols" id="slots">🍒 🍋 🔔</div>
+  <button onclick="spin()">Spin</button>
+
+  <div class="result" id="resultText"></div>
+
+  <div class="stats" id="stats">
+    <p>Total Spins: <span id="totalSpins">0</span></p>
+    <p>Jackpots: <span id="jackpotCount">0</span></p>
+    <p>Win Rate: <span id="winRate">0%</span></p>
+  </div>
+
+  <script>
+    const symbols = ["🍒", "🍋", "🔔", "⭐", "7️⃣"];
+    let totalSpins = 0;
+    let jackpots = 0;
+
+    function spin() {
+      const spin = [
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)],
+      ];
+
+      document.getElementById("slots").textContent = spin.join(" ");
+
+      totalSpins++;
+      if (spin[0] === spin[1] && spin[1] === spin[2]) {
+        jackpots++;
+        document.getElementById("resultText").textContent = "🎉 Jackpot! But was it worth all those spins?";
+      } else {
+        document.getElementById("resultText").textContent = "No win. Try again? That's how they get you.";
+      }
+
+      const winRate = ((jackpots / totalSpins) * 100).toFixed(2);
+      document.getElementById("totalSpins").textContent = totalSpins;
+      document.getElementById("jackpotCount").textContent = jackpots;
+      document.getElementById("winRate").textContent = winRate + "%";
+    }
+  </script>
+
+</body>
+</html>
